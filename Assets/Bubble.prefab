@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 7170610391602340960}
   - component: {fileID: 7170610391602340975}
   - component: {fileID: 7170610391602340974}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Bubble
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -144,4 +144,5 @@ MonoBehaviour:
   noiseSpeed: 1
   noiseScale: 2
   randomSeed: 12345
+  maxXAngle: 5
   randomDirection: 0

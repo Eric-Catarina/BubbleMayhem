@@ -11,9 +11,6 @@ public class BubbleMovement : MonoBehaviour
     public float noiseScale = 1.0f; // Adjust this to control the scale of the noise.
     public int randomSeed = 12345; // Seed value for Perlin noise. Change as needed.
     
-    // Range
-    [Range(0, 10)]
-    private float maxXAngle = 5f;
     public float randomDirection;
 
     private Vector3 initialPosition;
@@ -24,12 +21,13 @@ public class BubbleMovement : MonoBehaviour
         SetRandomColor();
         initialPosition = transform.position;
         rb = GetComponent<Rigidbody>();
-        randomDirection = Random.Range(-1f, 1f) ;
-        maxXAngle = Random.Range(0.1f, 5f);
+        randomDirection = Random.Range(-0.1f, 0.1f) ;
         randomSeed = Random.Range(1, 100000);
         floatStrength = Random.Range(2f, 8f);
         noiseScale = Random.Range(0.1f, 2f);
         Random.InitState(randomSeed);
+
+
 
     }
 
@@ -40,13 +38,19 @@ public class BubbleMovement : MonoBehaviour
         // Apply a force to make the object float.
         Vector3 floatForce = Vector3.up * noiseValue * floatStrength;
         // Get a random 1 or -1
-        floatForce.x = floatForce.y/maxXAngle * randomDirection;
+        floatForce.x = floatForce.y * randomDirection;
         rb.velocity = floatForce;
     }
     
     public void SetRandomColor()
     {
         GetComponent<Renderer>().material.color = Random.ColorHSV();
+    }
+
+    void OnCollisionEnter(Collision other){
+        GameObject healthText = GameObject.Find("HealthText");
+        healthText.GetComponent<HealthText>().TakeDamage();
+        Destroy(gameObject);
     }
 
 }
